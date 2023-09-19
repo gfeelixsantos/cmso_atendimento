@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <title>Atendimento CMSO</title>
+</head>
+<body>
+  <h1>Atendimento CMSO</h1>
+  <form action="http://localhost:3030/cadastrar" method="GET">
+    <label for="cdEmpresa">Código Empresa:</label>
+    <input id="cdEmpresa" type="text">
+    <label for="cdFicha">Código da Ficha:</label>
+    <input id="cdFicha" type="text">
+    <hr>
+    <label for="senha">Senha:</label>
+    <select name="idSenha" id="idSenha">
+      <option value="A">A</option>
+      <option value="N">N</option>
+      <option value="P">P</option>
+      <option value="BR">BR</option>
+      <option value="DP">DP</option>
+      <option value="LU">LU</option>
+      <option value="OW">OW</option>
+      <option value="RI">RI</option>
+      <option value="VB">VB</option>
+      <option value="WH">WH</option>
+    </select>
+    <input id="cpf" type="text">
+    <button type="submit">ENVIAR ATENDIMENTO</button>
+  </form>
+  <div>
+    <h2>Leitura QR Code</h2>
+    <video id="preview"></video>
+  </div> 
+  <script type="text/javascript" src="/script.js" ></script>
+</body>
+</html>
