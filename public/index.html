@@ -8,11 +8,13 @@
 </head>
 <body>
   <h1>Atendimento CMSO</h1>
-  <form action="http://localhost:3030/cadastrar" method="GET">
+  <form action="http://localhost:3030" method="POST">
     <label for="cdEmpresa">Código Empresa:</label>
-    <input id="cdEmpresa" type="text">
+    <input id="cdEmpresa" type="text" name="cdEmpresa" required>
     <label for="cdFicha">Código da Ficha:</label>
-    <input id="cdFicha" type="text">
+    <input id="cdFicha" type="text" name="cdFicha" required>
+    <label for="cpfFuncionario">CPF:</label>
+    <input id="cpfFuncionario" type="text" name="cpfFuncionario" required>
     <hr>
     <label for="senha">Senha:</label>
     <select name="idSenha" id="idSenha">
@@ -27,8 +29,9 @@
       <option value="VB">VB</option>
       <option value="WH">WH</option>
     </select>
-    <input id="cpf" type="text">
-    <button type="submit">ENVIAR ATENDIMENTO</button>
+    <input id="numSenha" type="number" name="numSenha" min="1"  value="1" required>
+    <button id="btnEnviar" type="submit">ENVIAR ATENDIMENTO</button>
+    <button id="btnReset" type="reset" >LIMPAR</button>
   </form>
   <div>
     <h2>Leitura QR Code</h2>
