@@ -1,3 +1,4 @@
+const cadastroIndesk = require("./cadastroIndesk")
 
 // Exporta dados utilizado: EXAMES DO FUNCIONARIO POR SEQUENCIAL
 function buscaDados(funcionario) {
@@ -10,10 +11,7 @@ function buscaDados(funcionario) {
     fetch(url, {method: 'POST'})
         .then( response => response.json())
         .then( data => {
-            for (exame of data){
-                const exames = exame['EXAME']
-                console.log(exames);
-            }
+            console.log(funcionario, data);
         })
 
 }
