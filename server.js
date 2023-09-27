@@ -1,9 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const acessoIndesk = require('./services/indesk')
+const cadastrarSenha = require('./services/cadastrarSenha')
 const app = express()
 const port = 3030
-
+let browserIndesk = ''
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: false}))
@@ -15,13 +16,19 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     const dados = req.body
-    acessoIndesk(dados)
+    cadastrarSenha(browserIndesk, dados)
     res.redirect('/')
 })
 
 
 
-app.listen( port, () => {
+app.listen( port, async() => {
+
     console.log( `SERVIDOR RODANDO NA PORTA: ${port}`);
+    browserIndesk = await acessoIndesk()
+    
+    
 })
+
+
 
