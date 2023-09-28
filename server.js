@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     const dados = req.body
+    console.log(dados);
     cadastrarSenha(browserIndesk, dados)
     res.redirect('/')
 })

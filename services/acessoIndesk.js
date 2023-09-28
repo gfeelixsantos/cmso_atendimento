@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const cadastrarSenha = require('./cadastrarSenha');
+
 
 
 async function acessoIndesk(senha) {

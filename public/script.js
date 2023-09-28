@@ -1,44 +1,48 @@
-const empresa = document.querySelector('#cdEmpresa')
-const cpf = document.querySelector('#cpfFuncionario')
-const ficha = document.querySelector('#cdFicha')
+//Funcionario
+const idEmpresa = document.querySelector('#empresa')
+const idCpf = document.querySelector('#cpf')
+const idFicha = document.querySelector('#ficha')
 
+// Senha
 const idSenha = document.querySelector('#idSenha')
 const numSenha = document.querySelector('#numSenha')
 
+// Botoes
 const btnEnviar = document.querySelector('#btnEnviar')
 const btnReset = document.querySelector('#btnReset')
 
+// Camera
+const videoElement = document.getElementById('preview');
 
-var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5 });
+// Inicializa o leitor de QR Code
+const scanner = new Instascan.Scanner({ video: videoElement });
 scanner.addListener('scan', function (content) {
-
-
+    
   let data = content.split('"')
 
-  let cdEmpresa = data[3]
-  let cpfFuncionario = data[7]
-  let cdFicha = '239582987'  // Alterar para código sequencial da Ficha Clínica
+  console.log(data);
+  let empresa = data[3]
+  let cpf = data[7]
+  let ficha = data[11]  // Alterar para código sequencial da Ficha Clínica
   
-  empresa.setAttribute('value', cdEmpresa)
-  ficha.setAttribute('value', cdFicha)
-  cpf.setAttribute('value', cpfFuncionario)
+  idEmpresa.setAttribute('value', empresa)
+  idCpf.setAttribute('value', cpf)
+  idFicha.setAttribute('value', ficha)
+  
 
-})
+});
 
-
-Instascan.Camera.getCameras()
-  .then(function (cameras) {
-    self.cameras = cameras;
-      if (cameras.length > 0) {
-        console.log(cameras);
-        self.activeCameraId = cameras.id;
-        self.scanner.start(cameras[0]);
-      } else {
-        console.error('No cameras found.');
-      }
-  }).catch(function (e) {
+// Inicializa a câmera
+Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+        scanner.start(cameras[0]);
+    } else {
+        console.error('Nenhuma câmera encontrada.');
+    }
+}).catch(function (e) {
     console.error(e);
-  });
+});
+
 
 
 // Enviando o formulário
@@ -50,8 +54,6 @@ btnEnviar.addEventListener('click', () => {
   }
 })
 
-
-
 // Limpando campos do formulário
 btnReset.addEventListener('click', () => {
   
@@ -60,8 +62,3 @@ btnReset.addEventListener('click', () => {
   cpf.removeAttribute('value')
 
 })
-
-
-
-
-

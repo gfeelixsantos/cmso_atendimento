@@ -9,12 +9,12 @@
 <body>
   <h1>Atendimento CMSO</h1>
   <form action="http://localhost:3030" method="POST">
-    <label for="cdEmpresa">Código Empresa:</label>
-    <input id="cdEmpresa" type="text" name="cdEmpresa" required>
-    <label for="cdFicha">Código da Ficha:</label>
-    <input id="cdFicha" type="text" name="cdFicha" required>
-    <label for="cpfFuncionario">CPF:</label>
-    <input id="cpfFuncionario" type="text" name="cpfFuncionario" required>
+    <label for="empresa">Código Empresa:</label>
+    <input id="empresa" type="text" name="empresa" required>
+    <label for="ficha">Código da Ficha:</label>
+    <input id="ficha" type="text" name="ficha" required>
+    <label for="cpf">CPF:</label>
+    <input id="cpf" type="text" name="cpf" required>
     <hr>
     <label for="senha">Senha:</label>
     <select name="idSenha" id="idSenha">
@@ -40,6 +40,7 @@
     <h2>Leitura QR Code</h2>
     <video id="preview"></video>
   </div> 
-  <script type="text/javascript" src="/script.js" ></script>
+  <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
