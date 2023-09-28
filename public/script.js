@@ -44,9 +44,9 @@ Instascan.Camera.getCameras()
 // Enviando o formulário
 btnEnviar.addEventListener('click', () => {
   if (empresa.value, ficha.value, cpf.value, numSenha.value != ""){
-    window.alert('✔ Cadastro enviado')
+    window.alert('✔ ATENDIMENTO ENVIADO')
   } else {
-    alert('⚠ Verifique os campos !')
+    alert('⚠ ATENÇÃO, VERIFIQUE OS CAMPOS !')
   }
 })
 

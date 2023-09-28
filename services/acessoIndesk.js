@@ -7,7 +7,6 @@ async function acessoIndesk(senha) {
   // Iniciando Puppeteer
   const browser = await puppeteer.launch({ 
     // executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe', 
-    headless:false
    });
 
   const page = await browser.newPage()
@@ -32,13 +31,7 @@ async function acessoIndesk(senha) {
   })
 
 
-  const browserEndPoint = await browser.wsEndpoint()
-
-  console.log('INDESK DISPONÍVEL');
-  return browserEndPoint
-
-
-  
+  return await browser.wsEndpoint()
   
 }
 

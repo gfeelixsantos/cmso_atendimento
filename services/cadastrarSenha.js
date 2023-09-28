@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
-const buscaDados = require('./buscadados');
-const verTipoExame = require('./verTipoExame')
+const buscaDados = require('./buscaDados');
+const verTipoExame = require('./verTipoExame');
 
 async function cadastrarSenha(endPoint, senha) {
-
+    console.log(senha, typeof(senha));
     try {
         // Conectando ao Atendente Indesk
         const browser = await puppeteer.connect({
@@ -34,20 +34,125 @@ async function cadastrarSenha(endPoint, senha) {
             let guiaFuncionario = await buscaDados(senha)
             guiaFuncionario = await verTipoExame(guiaFuncionario)
             
-            await entradaDados.type(`${guiaFuncionario[0]['rzsocial']} - ${guiaFuncionario[0]['nome']} - ${guiaFuncionario[0]['tipoExame']}` , {delay: 30})
+            await entradaDados.type(`${guiaFuncionario[0]['rzsocial']} - ${guiaFuncionario[0]['nome']} - ${guiaFuncionario[0]['tipoExame']}`)
+
+            // Verifica atendimento preferencial
+            if (senha.atendimento == 'preferencial'){
+                entradaDados = await page.waitForSelector('div[aria-label="Preferencial"]')
+                entradaDados.click()
+            }
+
+            // Filtra/Seleciona exames
+            await guiaFuncionario.forEach(async(element) => {
+                
+                // Acuidade Visual
+                if (element.codigoEexameS5 == '50.01.001-8' || element.codigoEexameS5 == '20221407' || element.codigoEexameS5 == '02002' || element.codigoEexameS5 == '4447'  || element.codigoEexameS5 == '1100001'){
+                    await page.evaluate( () => {
+                        let acuidadeVisual = document.querySelectorAll('input')
+                        acuidadeVisual[6].click()
+                    })
+                }
+
+                // Audiometria
+                if (element.codigoEexameS5 == '51.01.004-6' || element.codigoEexameS5 == '50c'){
+                    await page.evaluate( () => {
+                        let audiometria = document.querySelectorAll('input')
+                        audiometria[7].click()
+                    })
+                }
+
+                // Dinamomtria
+                if (element.codigoEexameS5 == '20' || element.codigoEexameS5 == '58877'){
+                    await page.evaluate( () => {
+                        let dinamometria = document.querySelectorAll('input')
+                        dinamometria[8].click()
+                    })
+                }
+
+                // Avaliacao Psicologica
+                if (element.codigoEexameS5 == '00123' || element.codigoEexameS5 == '225588' || element.codigoEexameS5 == '111114'){
+                    await page.evaluate( () => {
+                        let avPsicologica = document.querySelectorAll('input')
+                        avPsicologica[9].click()
+                    })
+                }
+
+                // Clinico
+                if (element.codigoEexameS5 == 'clinico' || element.codigoEexameS5 == '11' || element.codigoEexameS5 == '003003' || element.codigoEexameS5 == '01122000'){
+                    await page.evaluate( () => {
+                        let clinico = document.querySelectorAll('input')
+                        clinico[10].click()
+                    })
+                }
+
+                // ECG
+                if (element.codigoEexameS5 == '20.01.001-0'){
+                    await page.evaluate( () => {
+                        let ecg = document.querySelectorAll('input')
+                        ecg[11].click()
+                    })
+                }
+
+                // EEG
+                if (element.codigoEexameS5 == '22010017'){
+                    await page.evaluate( () => {
+                        let eeg = document.querySelectorAll('input')
+                        eeg[12].click()
+                    })
+                }
+
+                // Espirometria
+                if (element.codigoEexameS5 == '19.01.029-0'){
+                    await page.evaluate( () => {
+                        let espirometria = document.querySelectorAll('input')
+                        espirometria[13].click()
+                    })
+                }
+
+                // LABORATORIO...
+
+                // Raio-X
+                if (element.codigoEexameS5 == '2221111' ||
+                    element.codigoEexameS5 == '0..' ||
+                    element.codigoEexameS5 == '-0-' ||
+                    element.codigoEexameS5 == '254477' ||
+                    element.codigoEexameS5 == '1v1v' ||
+                    element.codigoEexameS5 == '111' ||
+                    element.codigoEexameS5 == '0.' ||
+                    element.codigoEexameS5 == '8999' ||
+                    element.codigoEexameS5 == '14111' ||
+                    element.codigoEexameS5 == '32050070' ||
+                    element.codigoEexameS5 == '8998' ||
+                    element.codigoEexameS5 == '12200' 
+                    ){
+                    await page.evaluate( () => {
+                        let raioX = document.querySelectorAll('input')
+                        raioX[15].click()
+                    })
+                }
+
+                // ENFERMAGEM...
+
+                // FINALIZACAO...
 
 
+
+            });
+
+            // Encaminha atendimento
+            await page.evaluate( () => {
+                let encaminhar = document.querySelectorAll('button')
+                encaminhar[5].focus()
+            })
 
         }
         
         
 
     } catch (error) {
-        console.log(error);
+        console.log(error, 'ERRO NO CADASTRO DE SENHA');
         
     }
-
-
 
 }
 
