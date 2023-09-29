@@ -1,5 +1,3 @@
-const iconv = require('iconv-lite');
-
 
 function buscaDados(funcionario) {
 

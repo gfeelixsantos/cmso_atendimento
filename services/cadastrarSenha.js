@@ -7,8 +7,10 @@ async function cadastrarSenha(endPoint, senha) {
     try {
         // Conectando ao Atendente Indesk
         const browser = await puppeteer.connect({
-            browserWSEndpoint: endPoint
+            browserWSEndpoint: endPoint,
+            
         })
+        
         
         // Identificando Indesk
         const targets = browser.targets()
@@ -16,7 +18,9 @@ async function cadastrarSenha(endPoint, senha) {
         
         if (targetPage){
             const page = await targetPage.page()
-            
+            page.setDefaultTimeout(0)
+
+
             // Inserindo dados
             let entradaDados = await page.waitForSelector('input[aria-label="SIGLA"]')
             await entradaDados.type(senha.idSenha, {delay: 80})

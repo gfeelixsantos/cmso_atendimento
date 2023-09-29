@@ -17,14 +17,17 @@ const videoElement = document.getElementById('preview');
 // Inicializa o leitor de QR Code
 const scanner = new Instascan.Scanner({ video: videoElement });
 scanner.addListener('scan', function (content) {
-    
-  let data = content.split('"')
+  
+  // Som ao ler QR
+  const audio = new Audio('./src/sound/sucess-sound4.mp3')
+  audio.play()
 
-  console.log(data);
+  // Dados QR CODE
+  let data = content.split('"')
   let empresa = data[3]
   let cpf = data[7]
-  let ficha = data[11]  // Alterar para código sequencial da Ficha Clínica
-  
+  let ficha = '123' //data[11]
+
   idEmpresa.setAttribute('value', empresa)
   idCpf.setAttribute('value', cpf)
   idFicha.setAttribute('value', ficha)
@@ -34,6 +37,7 @@ scanner.addListener('scan', function (content) {
 
 // Inicializa a câmera
 Instascan.Camera.getCameras().then(function (cameras) {
+  console.log(cameras);
     if (cameras.length > 0) {
         scanner.start(cameras[0]);
     } else {
@@ -47,12 +51,11 @@ Instascan.Camera.getCameras().then(function (cameras) {
 
 // Enviando o formulário
 btnEnviar.addEventListener('click', () => {
-  if (empresa.value, ficha.value, cpf.value, numSenha.value != ""){
-    window.alert('✔ ATENDIMENTO ENVIADO')
-  } else {
+  if (empresa.value, ficha.value, cpf.value, numSenha.value == ""){
     alert('⚠ ATENÇÃO, VERIFIQUE OS CAMPOS !')
   }
 })
+
 
 // Limpando campos do formulário
 btnReset.addEventListener('click', () => {

@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'teste.html'))
+    res.sendFile(path.join(__dirname, 'index.html'))
+    res.sendFile(path.join(__dirname, 'script.html'))
 })
 
 app.post('/', (req, res) => {
@@ -29,7 +30,6 @@ app.post('/', (req, res) => {
 app.listen( port, async() => {
 
     browserIndesk = await acessoIndesk()
-    console.log('INDESK DISPONÍVEL');
 
     // browserSOC = await acessoSOC()
     // console.log('SOC DISPONÍVEL');
