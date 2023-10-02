@@ -24,15 +24,16 @@ scanner.addListener('scan', function (content) {
 
   // Dados QR CODE
   let data = content.split('"')
-  let empresa = data[3]
-  let cpf = data[7]
-  let ficha = '123' //data[11]
 
-  idEmpresa.setAttribute('value', empresa)
-  idCpf.setAttribute('value', cpf)
-  idFicha.setAttribute('value', ficha)
+  let funcionario = new Object()
+  funcionario.empresa = data[3]
+  funcionario.cpf = data[7]
+  funcionario.ficha = '239582987' //data[11]
+
+  idEmpresa.setAttribute('value', funcionario.empresa)
+  idCpf.setAttribute('value', funcionario.cpf)
+  idFicha.setAttribute('value', funcionario.ficha)
   
-
 });
 
 // Inicializa a câmera

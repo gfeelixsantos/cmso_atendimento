@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
-const buscaDados = require('./buscaDados');
+const buscaDados = require('./buscadadoSOC');
 const verTipoExame = require('./verTipoExame');
 
 async function cadastrarSenha(endPoint, senha) {
-    console.log(senha, typeof(senha));
+
     try {
         // Conectando ao Atendente Indesk
         const browser = await puppeteer.connect({
@@ -37,8 +37,14 @@ async function cadastrarSenha(endPoint, senha) {
             // Requisições 
             let guiaFuncionario = await buscaDados(senha)
             guiaFuncionario = await verTipoExame(guiaFuncionario)
-            
-            await entradaDados.type(`${guiaFuncionario[0]['rzsocial']} - ${guiaFuncionario[0]['nome']} - ${guiaFuncionario[0]['tipoExame']}`)
+            senha.nomeEmpresa = guiaFuncionario[0].rzsocial
+            senha.funcionario = guiaFuncionario[0].nome
+            senha.setor = guiaFuncionario[0].setor
+            senha.cargo = guiaFuncionario[0].cargo
+            senha.tipoExame = guiaFuncionario[0].tipoExame
+            senha.qtdExames = guiaFuncionario.length
+
+            await entradaDados.type(`${senha.funcionario} - ${senha.tipoExame} (${senha.qtdExames} EXAMES) - ${senha.nomeEmpresa}`)
 
             // Verifica atendimento preferencial
             if (senha.atendimento == 'preferencial'){
@@ -47,6 +53,8 @@ async function cadastrarSenha(endPoint, senha) {
             }
 
             // Filtra/Seleciona exames
+            guiaFuncionario.push( guiaFuncionario.codigoEexameS5 = 'finalizacao')
+            console.log(guiaFuncionario);
             await guiaFuncionario.forEach(async(element) => {
                 
                 // Acuidade Visual
@@ -137,7 +145,12 @@ async function cadastrarSenha(endPoint, senha) {
 
                 // ENFERMAGEM...
 
-                // FINALIZACAO...
+                // Finalização
+                await page.evaluate( () => {
+                        let finalizacao = document.querySelectorAll('input')
+                        finalizacao[17].click()
+                    })
+                
 
 
 
@@ -147,6 +160,7 @@ async function cadastrarSenha(endPoint, senha) {
             await page.evaluate( () => {
                 let encaminhar = document.querySelectorAll('button')
                 encaminhar[5].focus()
+                console.log('cliquei');
             })
 
         }

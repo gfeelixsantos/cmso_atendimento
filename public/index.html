@@ -8,6 +8,10 @@
 </head>
 <body>
   <h1>Atendimento CMSO</h1>
+  <div>
+    <h2>Leitura QR Code</h2>
+    <video id="preview"></video>
+  </div> 
   <form action="http://localhost:3030" method="POST">
     <label for="empresa">Código Empresa:</label>
     <input id="empresa" type="text" name="empresa" required>
@@ -36,10 +40,6 @@
     <button id="btnEnviar" type="submit">ENVIAR ATENDIMENTO</button>
     <button id="btnReset" type="reset" >LIMPAR</button>
   </form>
-  <div>
-    <h2>Leitura QR Code</h2>
-    <video id="preview"></video>
-  </div> 
   <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
   <script src="./script.js"></script>
 </body>
